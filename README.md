@@ -1,5 +1,5 @@
 # MS-Project
 Auravision VR
 
-![VR View](https://imgur.com/a/eWFsn)
-![Player 2 View](https://imgur.com/a/SFdnA)
+![VR View](VR View.png)
+![Player 2 View](Player2 View.png)
