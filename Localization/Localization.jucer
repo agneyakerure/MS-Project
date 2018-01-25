@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="bEr3aQ" name="Localization" displaySplashScreen="1" reportAppUsage="1"
+              splashScreenColour="Dark" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.yourcompany.Localization" includeBinaryInAppConfig="1"
+              cppLanguageStandard="11" companyCopyright="" jucerVersion="5.2.0">
+  <MAINGROUP id="SAXg4n" name="Localization">
+    <GROUP id="{07330B4F-D993-280B-7881-6D6F4C22D464}" name="Source">
+      <FILE id="xlbuaT" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="i971z6" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="EeEoFz" name="RingBuffer.cpp" compile="1" resource="0" file="Source/RingBuffer.cpp"/>
+      <FILE id="bXGeRi" name="RingBuffer.h" compile="0" resource="0" file="Source/RingBuffer.h"/>
+      <FILE id="VNFWkh" name="AcfPitchTracker.cpp" compile="1" resource="0"
+            file="Source/AcfPitchTracker.cpp"/>
+      <FILE id="PijR68" name="AcfPitchTracker.h" compile="0" resource="0"
+            file="Source/AcfPitchTracker.h"/>
+      <FILE id="s2vVaR" name="PitchTracker.cpp" compile="1" resource="0"
+            file="Source/PitchTracker.cpp"/>
+      <FILE id="M19TSx" name="PitchTracker.h" compile="0" resource="0" file="Source/PitchTracker.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <VS2017 targetFolder="Builds/VisualStudio2017">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="Localization"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="x64"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="Localization"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_osc" path="../../../Documents/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2017>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_osc" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>
