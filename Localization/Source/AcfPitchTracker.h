@@ -21,6 +21,7 @@ using namespace std;
 class AcfPitchTracker : public PitchTracker
 {
 private:
+	float* current_frame;
 	float findPitchInHz(RingBuffer* window);
 	vector<float> smoothAutoCorr(vector<float> auto_corr_array);
 	vector<float> autoCorrelation(float* curr_frame, float energy_window);

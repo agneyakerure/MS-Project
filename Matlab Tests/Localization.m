@@ -1,5 +1,5 @@
 Rate = 16000;
-Microphone = dsp.AudioRecorder('SampleRate',Rate,'SamplesPerFrame',3200,'DeviceName','Primary Sound Capture Driver','NumChannels',2);%Mic/Inst/Line In 1/2 (Studio 68)
+Microphone = dsp.AudioRecorder('SampleRate',Rate,'SamplesPerFrame',3200,'DeviceName','Microphone (PreSonus Studio 68)','NumChannels',3);%Mic/Inst/Line In 1/2 (Studio 68)
 tic;
 while (toc)
     
@@ -7,6 +7,13 @@ while (toc)
     audio = step(Microphone);
     signal1 = audio(:,1);
     signal2 = audio(:,2);
+    signal3 = audio(:,3);
+%     if(signal1 > signal2)
+%         disp("1");
+%     else
+%         disp("2");
+%     end
+    
 
     signalLength=3200; % SamplesperFrame
     noise= 0.00; % noise floor

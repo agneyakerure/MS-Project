@@ -27,6 +27,11 @@ public:
 		_ring_buffer1 = new RingBuffer();
 		_ring_buffer2 = new RingBuffer();
 
+		current_frame1 = new float[_window_size];
+		current_frame2 = new float[_window_size];
+
+		channel_data = new float*[_num_input_channels];
+
 		_pitch_tracker = 0;
 
         // specify the number of input and output channels that we want to open
@@ -43,6 +48,15 @@ public:
     {
 		delete _ring_buffer1;
 		delete _ring_buffer2;
+
+		for (int i = 0; i < _num_input_channels; i++)
+		{
+			delete channel_data[i];
+		}
+		delete current_frame1;
+		delete current_frame2;
+
+		delete channel_data;
 
 		PitchTracker::destroy(_pitch_tracker);
 
@@ -89,8 +103,6 @@ public:
 			int hop_size = _ring_buffer1->getHopSize();
 			int buffer_size = bufferToFill.numSamples;
 			int index;
-			float** channel_data = 0;
-			channel_data = new float*[_num_input_channels];
 
 			for (int i = 0; i < _num_input_channels; i++)
 			{
@@ -114,10 +126,11 @@ public:
 				_ring_buffer1->addNextBufferToFrame(_channel1_data);
 				_ring_buffer2->addNextBufferToFrame(_channel2_data);
 
-				midi_pitch_of_window = _pitch_tracker->findPitchInMidi(_ring_buffer2);
+				//midi_pitch_of_window = _pitch_tracker->findPitchInMidi(_ring_buffer2);
 				
 				index = crossCorrelation(_ring_buffer1, _ring_buffer2);
 				
+				Logger::getCurrentLogger()->writeToLog(String(index));
 
 				_channel1_data.erase(_channel1_data.begin(), _channel1_data.begin() + hop_size);
 				_channel2_data.erase(_channel2_data.begin(), _channel2_data.begin() + hop_size);
@@ -133,7 +146,7 @@ public:
 			//{
 			//	index = 1023;
 			//}
-			Logger::getCurrentLogger()->writeToLog(String(midi_pitch_of_window));
+			//Logger::getCurrentLogger()->writeToLog(String(midi_pitch_of_window));
 			//float arr1 = 1.34;
 
 			// Right now we are not producing any data, in which case we need to clear the buffer
@@ -142,23 +155,21 @@ public:
 			if (!sender.send("/juce/channel1", (float)index))
 				showConnectionErrorMessage("Error: could not send OSC message 1.");
 
-			if (!sender2.send("/juce/channel2", (float)midi_pitch_of_window))
-				showConnectionErrorMessage("Error: could not send OSC message 2.");
+			//if (!sender2.send("/juce/channel2", (float)midi_pitch_of_window))
+			//	showConnectionErrorMessage("Error: could not send OSC message 2.");
 
 
 			bufferToFill.clearActiveBufferRegion();
-			delete channel_data;
 		}
 
-		
     }
 
 	int crossCorrelation(RingBuffer *curr_frame1, RingBuffer *curr_frame2)
 	{
 		int read_position1 = curr_frame1->getReadPosition();
-		float* current_frame1 = (float*)malloc(_window_size * sizeof(float));
+		//(float*)malloc(_window_size * sizeof(float));
 		int read_position2 = curr_frame2->getReadPosition();
-		float* current_frame2 = (float*)malloc(_window_size * sizeof(float));
+		//float* current_frame2 = new float[_window_size];//(float*)malloc(_window_size * sizeof(float));
 		for (int i = 0; i < _window_size; i++)
 		{
 			current_frame1[i] = curr_frame1->getSample(0, (read_position1 + i) % _window_size);
@@ -261,8 +272,16 @@ private:
 			"OK");
 	}
 
+
+
 	RingBuffer* _ring_buffer1;
 	RingBuffer* _ring_buffer2;
+
+	float* current_frame1;
+	float* current_frame2;
+
+	float** channel_data = 0;
+
 	int _num_input_channels, _num_output_channels, _num_samples_per_block;
 	double _sample_rate;
 	vector<float> auto_corr_array;

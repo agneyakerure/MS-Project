@@ -37,9 +37,6 @@ public:
 	// adds next buffer to frame using the setSample method the AudioSampleBuffer class
 	void addNextBufferToFrame(vector<float> channel_data_avg);
 
-	// returns rms value of the buffer contents
-	float getBufferEnergy();
-
 	// returns the current read position
 	int getReadPosition();
 

@@ -54,19 +54,6 @@ void RingBuffer::addNextBufferToFrame(vector<float> channel_data_avg)
 	_read_position = (_read_position + _hop_size) % _window_size;
 }
 
-float RingBuffer::getBufferEnergy()
-{
-	float rms = 0;
-	float sampleValue = 0;
-	for (int i = 0; i < _window_size; i++)
-	{
-		sampleValue = getSample(0, (_read_position + i) % _window_size);
-		rms = rms + sampleValue*sampleValue;
-	}
-	rms = sqrt(rms / _window_size);
-	return rms;
-}
-
 int RingBuffer::getReadPosition()
 {
 	return _read_position;

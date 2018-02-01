@@ -20,14 +20,18 @@ AcfPitchTracker::AcfPitchTracker(int window_size) : PitchTracker(window_size)
 	setSampleRate(44100);
 	setMinFreqInHz(80);
 	setMaxFreqInHz(1000);
+	current_frame = new float[_window_size];
 }
 
-AcfPitchTracker::~AcfPitchTracker() {};
+AcfPitchTracker::~AcfPitchTracker() 
+{
+	delete current_frame;
+}
 
 float AcfPitchTracker::findPitchInHz(RingBuffer* window)
 {
 	int read_position = window->getReadPosition();
-	float* current_frame = (float*)malloc(_window_size * sizeof(float));
+	// = (float*)malloc(_window_size * sizeof(float));
 	float rms_value = window->rmsOfWindow();
 	float energy_window = rms_value*rms_value*_window_size;
 	if (rms_value < 0.005)
