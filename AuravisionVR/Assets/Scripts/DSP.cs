@@ -26,6 +26,7 @@ public class DSP : MonoBehaviour
     public float checkThisOut = 0.0f;
     public float checkThisPosition = 0.0f;
     public float position = 0.0f;
+    public int pair = 0;
     public GameObject target;
     public GameObject target2;
 
@@ -44,6 +45,7 @@ public class DSP : MonoBehaviour
     float newMin = 15.0f;
     float newValue;
     public AudioSource aud1;
+
     void Start()
     {
         
@@ -75,7 +77,10 @@ public class DSP : MonoBehaviour
         loudness = mic.GetComponent<MicControlC>().loudness;
         fundaFreq = oscRec.GetComponent<ReceivePosition>().pitch;
         position = oscRec.GetComponent<ReceivePosition>().position;
-        if((position > 2500) || (position < 1000))
+        pair = oscRec.GetComponent<ReceivePosition>().micPairNumber;    //use this for three pairs of microphones for more tracking
+
+
+        if ((position > 2500) || (position < 1000))
         {
             position = 1023;
         }
@@ -127,7 +132,21 @@ public class DSP : MonoBehaviour
             Debug.Log("Strike");
             fireCount = fireCount + 1;
             float NewValue = (((checkThisPosition - oldMin) * newRange) / oldRange) + newMin;
-            Instantiate(target, new Vector3(NewValue, 1.93f, 33.79f), Quaternion.identity);
+            //if(pair == 1)
+            {
+                Instantiate(target, new Vector3(NewValue, 1.93f, 33.79f), Quaternion.identity);
+            }
+
+            //if (pair == 2)
+            //{
+            //    Instantiate(target, new Vector3(NewValue, 1.93f, 33.79f), Quaternion.identity); //change this z value for pair 1,3
+            //}
+
+            //if (pair == 3)
+            //{
+            //    Instantiate(target, new Vector3(NewValue, 1.93f, 33.79f), Quaternion.identity); //change this z value for pair 2,3
+            //}
+
             target.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
             target.GetComponent<EnemyProperties>().health = checkThisOut * 6.0f;
         }

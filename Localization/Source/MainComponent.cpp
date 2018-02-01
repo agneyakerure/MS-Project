@@ -20,27 +20,31 @@ class MainContentComponent   : public AudioAppComponent
 public:
     //==============================================================================
 	MainContentComponent()
-		:_window_size(1024), _num_input_channels(2), _num_output_channels(2)
+		:_window_size(1024), _num_input_channels(3), _num_output_channels(2)
     {
         setSize (800, 600);
 
 		_ring_buffer1 = new RingBuffer();
 		_ring_buffer2 = new RingBuffer();
+		_ring_buffer3 = new RingBuffer();
 
 		current_frame1 = new float[_window_size];
 		current_frame2 = new float[_window_size];
+		current_frame3 = new float[_window_size];
 
 		channel_data = new float*[_num_input_channels];
 
 		_pitch_tracker = 0;
 
         // specify the number of input and output channels that we want to open
-        setAudioChannels (2, 2);
+        setAudioChannels (3, 2);
 
 
 		if (!sender.connect("127.0.0.1", 9001))
 			showConnectionErrorMessage("Error: could not connect to UDP port 9001.");
 		if (!sender2.connect("127.0.0.1", 9001))
+			showConnectionErrorMessage("Error: could not connect to UDP port 9001.");
+		if (!sender3.connect("127.0.0.1", 9001))
 			showConnectionErrorMessage("Error: could not connect to UDP port 9001.");
     }
 
@@ -48,13 +52,16 @@ public:
     {
 		delete _ring_buffer1;
 		delete _ring_buffer2;
+		delete _ring_buffer3;
 
 		for (int i = 0; i < _num_input_channels; i++)
 		{
 			delete channel_data[i];
 		}
+
 		delete current_frame1;
 		delete current_frame2;
+		delete current_frame3;
 
 		delete channel_data;
 
@@ -111,6 +118,8 @@ public:
 
 			float data1 = 0;
 			float data2 = 0;
+			float data3 = 0;
+
 			float midi_pitch_of_window = 0;
 			for (int i = 0; i < buffer_size; i++)
 			{
@@ -118,22 +127,53 @@ public:
 				data2 = 0;
 				data1 = data1 + channel_data[0][i];
 				data2 = data2 + channel_data[1][i];
+				data3 = data3 + channel_data[2][i];
+
 				_channel1_data.push_back(data1);
 				_channel2_data.push_back(data2);
+				_channel3_data.push_back(data3);
 			}
 			int x = _channel1_data.size();
 			while ((_channel1_data.size() >= hop_size) ) { //&& (_channel2_data.size() >= hop_size)
 				_ring_buffer1->addNextBufferToFrame(_channel1_data);
 				_ring_buffer2->addNextBufferToFrame(_channel2_data);
+				_ring_buffer3->addNextBufferToFrame(_channel3_data);
 
-				//midi_pitch_of_window = _pitch_tracker->findPitchInMidi(_ring_buffer2);
 				
-				index = crossCorrelation(_ring_buffer1, _ring_buffer2);
+				float rms1 = _ring_buffer1->rmsOfWindow();
+				float rms2 = _ring_buffer2->rmsOfWindow();
+				float rms3 = _ring_buffer3->rmsOfWindow();
+				
+
+				if ((rms1 > rms3) && (rms2 > rms3))
+				{
+					micPairNumber = 1;
+					index = crossCorrelation(_ring_buffer1, _ring_buffer2);
+					midi_pitch_of_window = _pitch_tracker->findPitchInMidi(_ring_buffer1);
+					Logger::getCurrentLogger()->writeToLog("1 and 2");
+				}
+				else if ((rms1 > rms2) && (rms3 > rms2))
+				{
+					micPairNumber = 2;
+					index = crossCorrelation(_ring_buffer1, _ring_buffer3);
+					midi_pitch_of_window = _pitch_tracker->findPitchInMidi(_ring_buffer2);
+					Logger::getCurrentLogger()->writeToLog("1 and 3");
+				}
+				else if ((rms2 > rms1) && (rms3 > rms1))
+				{
+					micPairNumber = 3;
+					index = crossCorrelation(_ring_buffer2, _ring_buffer3);
+					midi_pitch_of_window = _pitch_tracker->findPitchInMidi(_ring_buffer3);
+					Logger::getCurrentLogger()->writeToLog("2 and 3");
+				}
+
+				
 				
 				Logger::getCurrentLogger()->writeToLog(String(index));
 
 				_channel1_data.erase(_channel1_data.begin(), _channel1_data.begin() + hop_size);
 				_channel2_data.erase(_channel2_data.begin(), _channel2_data.begin() + hop_size);
+				_channel3_data.erase(_channel3_data.begin(), _channel3_data.begin() + hop_size);
 			}
 
 			/*AudioIODevice* device = deviceManager.getCurrentAudioDevice();
@@ -155,8 +195,11 @@ public:
 			if (!sender.send("/juce/channel1", (float)index))
 				showConnectionErrorMessage("Error: could not send OSC message 1.");
 
-			//if (!sender2.send("/juce/channel2", (float)midi_pitch_of_window))
-			//	showConnectionErrorMessage("Error: could not send OSC message 2.");
+			if (!sender2.send("/juce/channel2", (float)midi_pitch_of_window))
+				showConnectionErrorMessage("Error: could not send OSC message 2.");
+
+			if (!sender3.send("/juce/channel3", (int)micPairNumber))
+				showConnectionErrorMessage("Error: could not send OSC message 3.");
 
 
 			bufferToFill.clearActiveBufferRegion();
@@ -272,17 +315,18 @@ private:
 			"OK");
 	}
 
-
-
 	RingBuffer* _ring_buffer1;
 	RingBuffer* _ring_buffer2;
+	RingBuffer* _ring_buffer3;
 
 	float* current_frame1;
 	float* current_frame2;
+	float* current_frame3;
 
 	float** channel_data = 0;
 
 	int _num_input_channels, _num_output_channels, _num_samples_per_block;
+	int micPairNumber = 0;
 	double _sample_rate;
 	vector<float> auto_corr_array;
 
@@ -290,9 +334,11 @@ private:
 
 	vector<float> _channel1_data;
 	vector<float> _channel2_data;
+	vector<float> _channel3_data;
 
 	OSCSender sender;
 	OSCSender sender2;
+	OSCSender sender3;
 
 	const int _window_size;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainContentComponent)

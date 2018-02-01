@@ -12,6 +12,7 @@ public class ReceivePosition : MonoBehaviour {
     public List<float> positionList = new List<float>();
     public float position;
     public float pitch;
+    public int micPairNumber;
     // Use this for initialization
     void Start () {
 	   //osc.SetAddressHandler( "/CubeXYZ" , OnReceiveXYZ );
@@ -20,6 +21,7 @@ public class ReceivePosition : MonoBehaviour {
     //   osc.SetAddressHandler("/CubeZ", OnReceiveZ);
         osc.SetAddressHandler("/juce/channel1", OnReceiveTest);
         osc.SetAddressHandler("/juce/channel2", OnReceivePitch);
+        osc.SetAddressHandler("/juce/channel3", OnReceiveNumber);
         ///juce/channel1
     }
 
@@ -49,6 +51,12 @@ public class ReceivePosition : MonoBehaviour {
         float x = message.GetFloat(0);
         pitch = x;
 
+    }
+
+    void OnReceiveNumber(OscMessage message)
+    {
+        int x = message.GetInt(0);
+        micPairNumber = x;
     }
 
     //   void OnReceiveXYZ(OscMessage message){
