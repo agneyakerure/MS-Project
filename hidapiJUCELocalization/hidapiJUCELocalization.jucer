@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="LP2jVH" name="hidapiJUCELocalization" displaySplashScreen="1"
+              reportAppUsage="1" splashScreenColour="Dark" projectType="guiapp"
+              version="1.0.0" bundleIdentifier="com.yourcompany.hidapiJUCELocalization"
+              includeBinaryInAppConfig="1" cppLanguageStandard="11" companyCopyright=""
+              jucerVersion="5.2.0">
+  <MAINGROUP id="aqRL11" name="hidapiJUCELocalization">
+    <GROUP id="{0F8307AC-479A-463C-FEBC-48F32B473C6C}" name="Source">
+      <FILE id="zKbvWI" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="jleUzq" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="Heoj8Q" name="hidapi.dll" compile="0" resource="1" file="Source/hidapi.dll"/>
+      <FILE id="AhkT5o" name="hidapi.h" compile="0" resource="0" file="Source/hidapi.h"/>
+      <FILE id="E2mNJ7" name="hidapi.lib" compile="0" resource="1" file="Source/hidapi.lib"/>
+      <FILE id="nB4ouc" name="RingBuffer.cpp" compile="1" resource="0" file="Source/RingBuffer.cpp"/>
+      <FILE id="mgQq8g" name="RingBuffer.h" compile="0" resource="0" file="Source/RingBuffer.h"/>
+      <FILE id="Wy4mCL" name="PitchTracker.cpp" compile="1" resource="0"
+            file="Source/PitchTracker.cpp"/>
+      <FILE id="SxQ8sj" name="PitchTracker.h" compile="0" resource="0" file="Source/PitchTracker.h"/>
+      <FILE id="p9QKR9" name="AcfPitchTracker.cpp" compile="1" resource="0"
+            file="Source/AcfPitchTracker.cpp"/>
+      <FILE id="nL6YNd" name="AcfPitchTracker.h" compile="0" resource="0"
+            file="Source/AcfPitchTracker.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <VS2017 targetFolder="Builds/VisualStudio2017" windowsTargetPlatformVersion="10.0.16299.0">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="0" isDebug="1" optimisation="1" targetName="hidapiJUCELocalization"
+                       headerPath="C:\Users\Lenovo\Desktop\New folder\MS-Project\hidapiJUCELocalization\Source"
+                       libraryPath="C:\Users\Lenovo\Desktop\New folder\MS-Project\hidapiJUCELocalization\Source"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="Win32"
+                       debugInformationFormat="ProgramDatabase" enablePluginBinaryCopyStep="0"
+                       linkTimeOptimisation="1" isDebug="0" optimisation="3" targetName="hidapiJUCELocalization"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_video" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_osc" path="../../../../Documents/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../Documents/JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2017>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_osc" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS/>
+</JUCERPROJECT>

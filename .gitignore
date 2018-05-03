@@ -1,6 +1,6 @@
 # JUCE FILES
-/Localization/Builds
-/Localization/JuceLibraryCode
+/hidapiJUCELocalization/Builds
+/hidapiJUCELocalization/JuceLibraryCode
 
 # Unity Files
 /AuravisionVR/[Ll]ibrary/
